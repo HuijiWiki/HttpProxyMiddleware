@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 from twisted.web._newclient import ResponseNeverReceived
 from twisted.internet.error import TimeoutError, ConnectionRefusedError, ConnectError
-from crawler import fetch_free_proxyes
+from crawler_p1.HttpProxyMiddleware import fetch_free_proxyes
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ class HttpProxyMiddleware(object):
         # 一个proxy如果没用到这个数字就被发现老是超时, 则永久移除该proxy. 设为0则不会修改代理文件.
         self.dump_count_threshold = 20
         # 存放代理列表的文件, 每行一个代理, 格式为proto://ip:port, 这个文件会被修改, 注意备份
-        self.proxy_file = "proxyes.dat"
+        self.proxy_file = "proxies.dat"
         # 是否在超时的情况下禁用代理
         self.invalid_proxy_flag = True
         # 当有效代理小于这个数时(包括直连), 从网上抓取新的代理, 可以将这个数设为为了满足每个ip被要求输入验证码后得到足够休息时间所需要的代理数
